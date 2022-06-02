@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import "../Assets/Home.css";
 import logo from "../Assets/logo.png";
 import profilepic from "../Assets/profilepic.png";
@@ -17,7 +17,10 @@ export default function Home() {
     const [rank, setRank] = useState("12,904");
     const [percentile, setPercentile] = useState("37");
     const [score, setScore] = useState(7);
-    const rankresult = ("")
+    const rankresult = useRef();
+    const percentileresult =useRef();
+    const scoreresult =useRef();
+
 
     const data =[
         {
@@ -218,16 +221,19 @@ export default function Home() {
                           <div className="dbox">
                               <ul>
                                   <li>1️⃣ Update your rank
-                                  <input type="text" onChange={(e)=>{ setRank(e.target.value) }}/></li>
+                                  <input type="text" ref={rankresult} /></li>
                                   <li style={{top:"130px"}}>2️⃣ Update your percentile
-                                  <input type="text" onChange={(e)=>{ setPercentile(e.target.value) }}/></li>
+                                  <input type="text" ref={percentileresult} /></li>
                                   <li style={{top:"200px"}}>3️⃣ Update your current score (out of 15)
-                                  <input type="text" onChange={(e)=>{ setScore(e.target.value) }}/></li>
+                                  <input type="text" ref={scoreresult} /></li> 
                               </ul>
                               <div className="line" style={{top:"300px"}}></div>
                           </div>
                             <div className='dbuttons'>
-                            <button type="button" class="dbutton1" data-bs-dismiss="modal">Save</button>
+                            <button type="button" class="dbutton1" onClick={() => {
+                                setRank(rankresult.current.value)
+                                setPercentile(percentileresult.current.value)
+                                setScore(scoreresult.current.value)}} >Save</button>
                             <button type="button" class="dbutton2" data-bs-dismiss="modal">Cancel</button>
                         </div>
                       </div>
